@@ -1,0 +1,5 @@
+name = CPNAA Tablas
+description = "Tablas y manejo de datos"
+package = CPNAA
+core = 7.x
+

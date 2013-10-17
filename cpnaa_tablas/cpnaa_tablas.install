@@ -1,0 +1,36 @@
+<?php
+function cpnaa_tablas_schema() {
+			
+	//tabla de los bancos
+  $schema['cpnaa_tabla_banco'] = array(  
+    'fields' => array(
+      'id' => array('description' => 'id del banco', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
+      'nomBanco' => array('description' => 'Nombre del Banco', 'type' => 'varchar', 'length' => 50, 'not null' => TRUE, 'default' => '' ),    
+      'CodSuperfinaciera' => array('description' => '', 'type' => 'varchar', 'length' => 50, 'not null' => TRUE, 'default' => '' ),
+    ),
+    'primary key' => array('id') 
+  );
+	
+	//tabla de ciudades
+  $schema['cpnaa_tabla_ciudad'] = array(  
+    'fields' => array(
+      'id' => array('description' => 'id del banco', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
+      'nomCiudad' => array('description' => 'Nombre de la Ciudad', 'type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => '' ),    
+      'CodDane' => array('description' => '', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+      'idDepto' => array('description' => '', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+    ),
+    'primary key' => array('id') 
+  );
+	
+	//tabla de ciudades
+  $schema['cpnaa_tabla_departamento'] = array(  
+    'fields' => array(
+      'id' => array('description' => 'id del banco', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
+      'nomDepto' => array('description' => 'Nombre del Departamento', 'type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => '' ),    
+      'CodDane' => array('description' => '', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),      
+    ),
+    'primary key' => array('id') 
+  );
+  return $schema;
+}
+

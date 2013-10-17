@@ -1,0 +1,42 @@
+<?php
+
+global $CPNAA_tablas_names;
+$CPNAA_tablas_names =array(
+												'cpnaa_tabla_banco'=>'banco', 
+												'cpnaa_tabla_ciudad'=>'ciudad', 
+												'cpnaa_tabla_departamento'=>'departamento',
+												);
+
+include_once 'includes/cpnaa_tablas_upload.inc';
+
+
+
+/*
+ *Función menu para el manejo de las tablas 
+ */
+function cpnaa_tablas_menu() {
+    // subida de datos por csv
+    $items['admin/config/cpnaa/tablas/upload'] = array(
+      'title' => 'Subida de datos a las tablas de cpnaa',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('cpnaa_tablas_upload_csv_form'),
+      'access arguments' => array('Upload Csv'),
+      'file' => '/includes/cpnaa_tablas_upload.inc',
+      'type' => MENU_NORMAL_ITEM,
+    );
+ 
+    return $items;
+  }
+  
+/**
+ * Implements hook_permission().
+ */
+function cpnaa_tablas_permission() {
+	$perm['Upload Csv'] = array(
+      'title' => t('Upload CSV'), );	
+   
+  return $perm;
+}
+  
+
+
