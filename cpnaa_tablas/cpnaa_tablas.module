@@ -8,6 +8,7 @@ $CPNAA_tablas_names =array(
 												);
 
 include_once 'includes/cpnaa_tablas_upload.inc';
+include_once 'includes/cpnaa_tablas_utility.inc';
 
 
 
