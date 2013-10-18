@@ -1,10 +1,19 @@
 <?php
 
 global $CPNAA_tablas_names;
+/*
+ * Variable global con la info de las tablas que se consultan en los formularios
+ * 
+ * Campos
+ *			 	table:Nombre de la tabla en base de datos
+ * 				info: Campo para visualización, ejemplo en los selects
+ * 				fk: Campo de la llave foranea
+ * 				t_fk: Tabla de la llave foranea 
+ */
 $CPNAA_tablas_names =array(
-												'cpnaa_tabla_banco'=>'banco', 
-												'cpnaa_tabla_ciudad'=>'ciudad', 
-												'cpnaa_tabla_departamento'=>'departamento',
+													'banco'=>array('table'=>'cpnaa_tabla_banco', 'info'=>'nomBanco'),
+													'ciudad'=>array('table'=>'cpnaa_tabla_ciudad', 'info'=> 'nomCiudad', 'fk'=>'idDepto', 't_fk'=>'departamento'),
+													'departamento'=>array('table'=>'cpnaa_tabla_departamento', 'info'=>'nomDepto'),
 												);
 
 include_once 'includes/cpnaa_tablas_upload.inc';
