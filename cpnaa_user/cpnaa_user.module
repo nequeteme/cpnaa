@@ -1,0 +1,59 @@
+<?php
+
+
+function cpnaa_user_form_alter(&$form, &$form_state, $form_id){
+    switch($form_id) {
+       case 'user_register_form': // formulario de registro
+        $form['info_personal'] = array(
+            '#type' => 'fieldset',
+            '#title' => t('Informacion del usuario'),
+            '#weight' => 1,
+        );
+        $form['info_personal']['nombre'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Nombre usuario'),
+            '#weight' => 4,
+        );
+        $form['info_personal']['apellido'] = array(
+            '#type' => 'textfield',
+            '#title' => t(''),
+            '#weight' => 4,
+        );
+        $form['info_personal']['documento'] = array(
+            '#type' => 'textfield',
+            '#title' => t('CC / NIT / ID'),
+            '#weight' => 4,
+        );
+        $form['info_personal']['direccion'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Direccion'),
+            '#weight' => 4,
+        );
+        $deptos=cpnaa_tablas_get_select('departamento');
+        $form['info_personal']['departamento'] = array(
+            '#type' => 'select',
+            '#title' => t('Departamento'),
+            '#options' => $deptos, 
+            '#ajax' => array(
+                'callback' =>'cpnaa_user_depto_callback', 
+                ),
+        );
+        $form['info_personal']['ciudad'] = array(
+            '#type' => 'select',
+            '#title' => t('Departamento'), 
+        );
+        $form['#submit'][] = 'cpnaa_user_register_submit';
+    }
+   
+}
+
+function cpnaa_user_depto_callback($form, $form_state){
+    $ciudad=cpnaa_tablas_get_select('ciudad', $form_state['values']['departamento']);
+    $form['info_personal']['ciudad']['#options']=$ciudad;
+    return $form['info_personal']['ciudad'];
+}
+
+function cpnaa_user_register_submit($form, &$form_state)
+{
+     //echo 'Test-submit';
+}

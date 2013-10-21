@@ -1,0 +1,4 @@
+name = CPNAA User
+description = "Manejo de los datos adicionales de los usuarios"
+package = CPNAA
+core = 7.x
