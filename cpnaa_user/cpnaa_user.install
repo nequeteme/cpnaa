@@ -2,17 +2,19 @@
 function cpnaa_user_schema() {
 			
 	//tabla de datos adicionales de usuarios de cpnaa
-  $schema['cpnaa_tabla_banco'] = array(  
+  $schema['users_ext'] = array(  
     'fields' => array(
       'cpnaa_uid' => array('description' => 'id del usuario de cpnaa', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
-      'uid' => array('description' => 'id del usuario en drupal',  'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
-      'cedula' => array('description' => 'Cedula o n umero de identificacion', 'type' => 'varchar', 'length' => 50, 'not null' => TRUE, 'default' => '' ),
-      'nombre' => array('description' => 'Nombre del usuario', 'type' => 'varchar', 'length' => 80, 'not null' => TRUE, 'default' => '' ),
-      'apellido' => array('description' => 'Apellido del usuario', 'type' => 'varchar', 'length' => 80, 'not null' => TRUE, 'default' => '' ),
+      'users_uId' => array('description' => 'id del usuario en drupal',  'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+      'tipoDoc_id' => array('description' => 'id del usuario en drupal',  'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+      'numDocIdentificacion' => array('description' => 'número de identificación', 'type' => 'varchar', 'length' => 45, 'not null' => TRUE, 'default' => '' ),
+      'nombre' => array('description' => 'Nombre del usuario', 'type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => '' ),
+      'apellido' => array('description' => 'Apellido del usuario', 'type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => '' ),
       'direccion' => array('description' => 'direccion de residencia', 'type' => 'varchar', 'length' => 200, 'not null' => TRUE, 'default' => '' ),
-      'idCiudad' => array('description' => 'id de la ciudad', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
-      'telefono' => array('description' => 'Telefono del usuario', 'type' => 'varchar', 'length' => 200, 'not null' => TRUE, 'default' => '' ),
-      'direccion' => array('description' => 'direccion del usuario', 'type' => 'varchar', 'length' => 200, 'not null' => TRUE, 'default' => '' ),
+      'ciudad_id' => array('description' => 'id de la ciudad', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+      'telefono' => array('description' => 'Telefono del usuario', 'type' => 'varchar', 'length' => 45, 'not null' => TRUE, 'default' => '' ),
+      'Direccion' => array('description' => 'direccion del usuario', 'type' => 'varchar', 'length' => 45, 'not null' => TRUE, 'default' => '' ),
+      'newsletter' => array('description' => 'direccion del usuario', 'type' => 'varchar', 'length' => 45, 'not null' => TRUE, 'default' => '' ),
     ),
     'primary key' => array('cpnaa_uid') 
   );	
