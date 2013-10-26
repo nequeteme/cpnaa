@@ -10,7 +10,6 @@ function cpnaa_user_schema() {
       'numDocIdentificacion' => array('description' => 'número de identificación', 'type' => 'varchar', 'length' => 45, 'not null' => TRUE, 'default' => '' ),
       'nombre' => array('description' => 'Nombre del usuario', 'type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => '' ),
       'apellido' => array('description' => 'Apellido del usuario', 'type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => '' ),
-      'direccion' => array('description' => 'direccion de residencia', 'type' => 'varchar', 'length' => 200, 'not null' => TRUE, 'default' => '' ),
       'ciudad_id' => array('description' => 'id de la ciudad', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
       'telefono' => array('description' => 'Telefono del usuario', 'type' => 'varchar', 'length' => 45, 'not null' => TRUE, 'default' => '' ),
       'Direccion' => array('description' => 'direccion del usuario', 'type' => 'varchar', 'length' => 45, 'not null' => TRUE, 'default' => '' ),
