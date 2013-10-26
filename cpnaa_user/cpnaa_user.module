@@ -40,7 +40,7 @@ function cpnaa_user_form_alter(&$form, &$form_state, $form_id){
         );
         $form['info_personal']['ciudad'] = array(
             '#type' => 'select',
-            '#title' => t('Departamento'), 
+            '#title' => t('Ciudad'), 
         );
         $form['#submit'][] = 'cpnaa_user_register_submit';
     }

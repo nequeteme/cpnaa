@@ -11,9 +11,9 @@ global $CPNAA_tablas_names;
  * 				t_fk: Tabla de la llave foranea 
  */
 $CPNAA_tablas_names =array(
-													'banco'=>array('table'=>'cpnaa_tabla_banco', 'info'=>'nomBanco'),
-													'ciudad'=>array('table'=>'cpnaa_tabla_ciudad', 'info'=> 'nomCiudad', 'fk'=>'idDepto', 't_fk'=>'departamento'),
-													'departamento'=>array('table'=>'cpnaa_tabla_departamento', 'info'=>'nomDepto'),
+													'banco'=>array('table'=>'bancos', 'info'=>'nomBanco'),
+													'ciudad'=>array('table'=>'ciudad', 'info'=> 'nomCiudad', 'fk'=>'idDepto', 't_fk'=>'departamento'),
+													'departamento'=>array('table'=>'departamento', 'info'=>'nomDepto'),
 												);
 
 include_once 'includes/cpnaa_tablas_upload.inc';
