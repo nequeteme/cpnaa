@@ -1,0 +1,60 @@
+<?php
+function cpnaa_tablas_schema() {
+			
+	//tabla de los bancos
+  $schema['banco'] = array(  
+    'fields' => array(
+      'id' => array('description' => 'id del banco', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
+      'nomBanco' => array('description' => 'Nombre del Banco', 'type' => 'varchar', 'length' => 50, 'not null' => TRUE, 'default' => '' ),    
+      'CodSuperfinaciera' => array('description' => '', 'type' => 'varchar', 'length' => 50, 'not null' => TRUE, 'default' => '' ),
+    ),
+    'primary key' => array('id') 
+  );
+	
+	//tabla de ciudades
+  $schema['ciudad'] = array(  
+    'fields' => array(
+      'id' => array('description' => 'id del banco', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
+      'nomCiudad' => array('description' => 'Nombre de la Ciudad', 'type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => '' ),    
+      'CodDane' => array('description' => '', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+      'idDepto' => array('description' => '', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+    ),
+    'primary key' => array('id') 
+  );
+	
+	//tabla de departamentos
+  $schema['departamento'] = array(  
+    'fields' => array(
+      'id' => array('description' => 'id del banco', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
+      'nomDepto' => array('description' => 'Nombre del Departamento', 'type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => '' ),    
+      'CodDane' => array('description' => '', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),      
+    ),
+    'primary key' => array('id') 
+  );
+
+  //tabla de profesion
+  $schema['profesion'] = array(  
+    'fields' => array(
+      'id' => array('description' => 'id de las profesiones', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
+      'nomProfesion' => array('description' => 'Nombre de la profesion', 'type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => '' ),    
+      'codTipoProfesion' => array('description' => 'Codigo del tipo de la profesion', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),      
+    ),
+    'primary key' => array('id') 
+  );
+  
+    //tabla de tipo_profesion
+  $schema['tipo_profesion'] = array(  
+    'fields' => array(
+      'id' => array('description' => 'id de las profesiones', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
+      'nomTipoProfesion' => array('description' => 'Nombre del tipo de profesion', 'type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => '' ),    
+      'abreviatura' => array('description' => 'abreviatura del tipo de la profesion', 'type' => 'varchar', 'length' => 10, 'not null' => TRUE, 'default' => '' ),    
+      'nomEntidad' => array('description' => 'nomEntidad', 'type' => 'varchar', 'length' => 200, 'not null' => TRUE, 'default' => '' ),    
+      'activo' => array('description' => 'activo', 'type' => 'varchar', 'length' => 10, 'not null' => TRUE, 'default' => '' ),    
+ 
+    ),
+    'primary key' => array('id') 
+  );
+
+  return $schema;
+}
+

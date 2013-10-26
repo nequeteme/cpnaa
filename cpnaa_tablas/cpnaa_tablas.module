@@ -18,7 +18,7 @@ $CPNAA_tablas_names =array(
 
 include_once 'includes/cpnaa_tablas_upload.inc';
 include_once 'includes/cpnaa_tablas_utility.inc';
-
+include_once 'includes/cpnaa_tablas_edicion.inc';
 
 
 /*
@@ -30,11 +30,19 @@ function cpnaa_tablas_menu() {
       'title' => 'Subida de datos a las tablas de cpnaa',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('cpnaa_tablas_upload_csv_form'),
-      'access arguments' => array('Upload Csv'),
+      'access arguments' => array('cpnaa_tablas_upload_csv'),
       'file' => '/includes/cpnaa_tablas_upload.inc',
       'type' => MENU_NORMAL_ITEM,
     );
- 
+    // Formulario de edicion de las tablas de datos
+    $items['admin/config/cpnaa/tablas/edicion'] = array(
+      'title' => 'Edicion de datos a las tablas de cpnaa',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('cpnaa_tablas_edicion_form'),
+      'access arguments' => array('Editar tablas'),
+      'file' => '/includes/cpnaa_tablas_edicion.inc',
+      'type' => MENU_NORMAL_ITEM,
+    );
     return $items;
   }
   
@@ -42,9 +50,10 @@ function cpnaa_tablas_menu() {
  * Implements hook_permission().
  */
 function cpnaa_tablas_permission() {
-	$perm['Upload Csv'] = array(
-      'title' => t('Upload CSV'), );	
-   
+	$perm['cpnaa_tablas_upload_csv'] = array(
+      'title' => t('Subida de archivos Csv'), );	
+  $perm['cpnaa_tablas_edicion'] = array(
+      'title' => t('Edicion de datos en las tablas'), );  
   return $perm;
 }
   

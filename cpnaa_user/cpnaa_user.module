@@ -48,10 +48,10 @@ function cpnaa_user_form_alter(&$form, &$form_state, $form_id){
 }
 
 function cpnaa_user_depto_callback($form, $form_state){
-	  $ciudad=cpnaa_tablas_get_select('ciudad', $form_state['values']['departamento']);
+    $ciudad=cpnaa_tablas_get_select('ciudad', $form_state['values']['departamento']);
     $form['info_personal']['ciudad']['#options']=$ciudad;
-	  $form['info_personal']['ciudad'];
-	  $form_state['rebuild'] = TRUE;  
+    $form['info_personal']['ciudad'];
+    $form_state['rebuild'] = TRUE;  
 }
 
 function cpnaa_user_register_submit($form, &$form_state)

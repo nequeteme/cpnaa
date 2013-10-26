@@ -5,6 +5,7 @@
  *
  * @param $alias_tabla: tabla para hacer el select
  * @param $foren_key: id de la llave foranea para traer el dato encadenado, ejemplo ciudad de un departamento
+ * @return array con los datos para el select
  */
 function cpnaa_tablas_get_select($alias_tabla='departamento', $foren_key='') {
 	global $CPNAA_tablas_names;
@@ -22,4 +23,18 @@ function cpnaa_tablas_get_select($alias_tabla='departamento', $foren_key='') {
 		$data[$row->id]=$row->$CPNAA_tablas_names[$alias_tabla]['info'];							
 	}
 	return $data;	
+}
+
+
+/*
+ * Metodo para retornar las tablas para un select
+ *
+ * @return array con los datos para el select
+ */
+function cpnaa_tablas_get_tablas_select(){
+	$data=false;
+	foreach ($CPNAA_tablas_names as $key => $value) {
+		$data[$key]=[$key];
+	}
+	return $data;
 }
