@@ -11,7 +11,7 @@ global $CPNAA_tablas_names;
  * 				t_fk: Tabla de la llave foranea 
  */
 $CPNAA_tablas_names =array(
-													'banco'=>array('table'=>'bancos', 'info'=>'nomBanco'),
+													'banco'=>array('table'=>'banco', 'info'=>'nomBanco'),
 													'ciudad'=>array('table'=>'ciudad', 'info'=> 'nomCiudad', 'fk'=>'idDepto', 't_fk'=>'departamento'),
 													'departamento'=>array('table'=>'departamento', 'info'=>'nomDepto'),
 												);
@@ -25,26 +25,37 @@ include_once 'includes/cpnaa_tablas_edicion.inc';
  *Función menu para el manejo de las tablas 
  */
 function cpnaa_tablas_menu() {
-    // subida de datos por csv
-    $items['admin/config/cpnaa/tablas/upload'] = array(
-      'title' => 'Subida de datos a las tablas de cpnaa',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('cpnaa_tablas_upload_csv_form'),
-      'access arguments' => array('cpnaa_tablas_upload_csv'),
-      'file' => '/includes/cpnaa_tablas_upload.inc',
-      'type' => MENU_NORMAL_ITEM,
-    );
-    // Formulario de edicion de las tablas de datos
-    $items['admin/config/cpnaa/tablas/edicion'] = array(
-      'title' => 'Edicion de datos a las tablas de cpnaa',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('cpnaa_tablas_edicion_form'),
-      'access arguments' => array('Editar tablas'),
-      'file' => '/includes/cpnaa_tablas_edicion.inc',
-      'type' => MENU_NORMAL_ITEM,
-    );
-    return $items;
-  }
+  $items = array();
+  $items['admin/config/cpnaa'] = array(
+    'title' => 'Cpnaa',
+    'description' => 'Configuraciones de Cpnaa',
+    'position' => 'left',
+    'weight' => -100,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  // subida de datos por csv
+  $items['admin/config/cpnaa/tablas_upload'] = array(
+    'title' => 'Subida de datos a las tablas de cpnaa',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('cpnaa_tablas_upload_csv_form'),
+    'access arguments' => array('cpnaa_tablas_upload_csv'),
+    'file' => '/includes/cpnaa_tablas_upload.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  // Formulario de edicion de las tablas de datos
+  $items['admin/config/cpnaa/tablas_edicion'] = array(
+    'title' => 'Edicion de datos a las tablas de cpnaa',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('cpnaa_tablas_edicion_form'),
+    'access arguments' => array('Editar tablas'),
+    'file' => '/includes/cpnaa_tablas_edicion.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
   
 /**
  * Implements hook_permission().

@@ -3,17 +3,19 @@
 /*
  * Formulario para Editar las tablas de Cpnaa
  */
-function cpnaa_tablas_edicion_form() {
+function cpnaa_tablas_edicion_form($form, &$form_state) {
+  $inicial=false;
   $form = array();
   $form['#tree'] = TRUE;
   $form['form_edicion'] = array(
-    '#type' => 'container','#prefix' => '<div class="form_edicion_wrapper">', '#suffix' => '</div>',
+    '#type' => 'container','#prefix' => '<div id="form_edicion_wrapper">', '#suffix' => '</div>',
   );  
-  if(!empty($form_state['status'])){
+  if(empty($form_state['status'])){
     $form_state['status']="inicial";
+    $form_state['table_select']='';
+    $inicial=TRUE;
   }
-
-  if($form_state['status']=="inicial"){
+  if($inicial){
     $form['form_edicion']['table'] = array(
       '#type' => 'select',
       '#title' => t('Tabla'),
@@ -28,7 +30,59 @@ function cpnaa_tablas_edicion_form() {
         'wrapper' => 'form_edicion_wrapper',
       ),
     );
+  }
+  else{
+    if($form_state['status']=="tabla"){
+      $columns=cpnaa_tablas_get_tablas_schema($form_state['table_select']);
+      $form['form_edicion']['data_table'] = array(
+        '#type' => 'container','#prefix' => '<div class="form_edicion_table">', '#suffix' => '</div>',
+      );
+      //nombre de las columnas
+      foreach ($columns as $key => $value) {
+        $form['form_edicion']['data_table']["col_name".$key] = array(
+          '#type' => 'container','#prefix' => '<div class="form_edicion_table_names">'.$key, '#suffix' => '</div>',
+        );
+      }
 
+
+
+      $form['form_edicion']['cancelar_submit'] = array('#type' => 'submit', '#value' => t('Cancelar'),
+        '#submit' => array('cpnaa_tablas_edicion_cancelar'),
+        '#ajax' => array( 'callback' =>'cpnaa_tablas_carga_tabla_callback', 'wrapper' => 'form_edicion_wrapper', ),
+      );
+      $form['form_edicion']['Agregar_submit'] = array('#type' => 'submit', '#value' => t('Agregar registro'),
+        '#submit' => array('cpnaa_tablas_edicion_agregar'), '#ajax' => array('callback' =>'cpnaa_tablas_carga_tabla_callback', 'wrapper' => 'form_edicion_wrapper', ),
+      );
+    }
+    elseif ($form_state['status']=="agregar") {
+      $columns=cpnaa_tablas_get_tablas_schema($form_state['table_select']);
+      $form['form_edicion']['add_table'] = array(
+        '#type' => 'container','#prefix' => '<div class="form_edicion_add_table">', '#suffix' => '</div>',
+      );
+      //nombre de las columnas
+      foreach ($columns as $key => $value) {
+        if($value['type']=="varchar" )´{
+          $form['form_edicion']['add_table'][$key] = array('#type' => 'textfield', '#title' => $key,
+              '#default_value' => $value["default"] , '#size' => 60, '#maxlength' => $value["length"] ,
+              '#required' => TRUE,
+          );
+        }
+        else if($value['type']=="int" )´{
+          $form['form_edicion']['add_table'][$key] = array('#type' => 'textfield', '#title' => $key,
+              '#default_value' => $value["default"], '#size' => 10, '#maxlength' => "10",
+              '#required' => TRUE, '#element_validate' => array('element_validate_integer_positive'),
+          );
+        }
+      }
+      $form['form_edicion']['cancelar_add_submit'] = array('#type' => 'submit', '#value' => t('Cancelar'),
+        '#submit' => array('cpnaa_tablas_edicion_cancelar_add'),
+        '#ajax' => array( 'callback' =>'cpnaa_tablas_carga_tabla_callback', 'wrapper' => 'form_edicion_wrapper', ),
+      );
+      $form['form_edicion']['Agregar_add_submit'] = array('#type' => 'submit', '#value' => t('Guardar'),
+        '#submit' => array('cpnaa_tablas_edicion_agregar_add'), 
+        '#ajax' => array('callback' =>'cpnaa_tablas_carga_tabla_callback', 'wrapper' => 'form_edicion_wrapper', ),
+      );   
+    }
   }
 	
    
@@ -41,5 +95,39 @@ function cpnaa_tablas_carga_tabla_callback($form, $form_state) {
 
 function cpnaa_tablas_edicion_carga($form, &$form_state) {
   $form_state['status']="tabla";
+  $form_state['table_select']=$form_state['values']['form_edicion']['table'];
   $form_state['rebuild'] = TRUE;
+}
+function cpnaa_tablas_edicion_agregar_add($form, &$form_state) {
+  $form_state['status']="tabla";
+  $form_state['rebuild'] = TRUE;
+}
+
+function cpnaa_tablas_edicion_cancelar_add($form, &$form_state) {
+  $form_state['status']="tabla";
+  $form_state['rebuild'] = TRUE;
+}
+
+function cpnaa_tablas_edicion_cancelar($form, &$form_state) {
+  $form_state['status']="inicial";
+  $form_state['table_select']='';
+  $form_state['rebuild'] = TRUE;
+}
+
+function cpnaa_tablas_edicion_agregar($form, &$form_state) {
+  $form_state['status']="agregar";
+  $form_state['rebuild'] = TRUE;
+}
+
+
+/*
+ * Metodo para retornar los datos de las tablas
+ *
+ * @return array con los datos para el select
+ */
+function cpnaa_tablas_get_tablas_schema($alias_tabla='departamento'){
+  $data=false;
+  global $CPNAA_tablas_names;
+  $schema = drupal_get_schema($CPNAA_tablas_names[$alias_tabla]['table'],TRUE); 
+  return $schema['fields'] ;
 }

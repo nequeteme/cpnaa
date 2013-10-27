@@ -33,8 +33,9 @@ function cpnaa_tablas_get_select($alias_tabla='departamento', $foren_key='') {
  */
 function cpnaa_tablas_get_tablas_select(){
 	$data=false;
+	global $CPNAA_tablas_names;
 	foreach ($CPNAA_tablas_names as $key => $value) {
-		$data[$key]=[$key];
+		$data[$key]=$key;
 	}
 	return $data;
 }
