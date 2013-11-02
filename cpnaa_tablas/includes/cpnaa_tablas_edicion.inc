@@ -15,6 +15,7 @@ function cpnaa_tablas_edicion_form($form, &$form_state) {
     $form_state['table_select']='';
     $inicial=TRUE;
   }
+  //Primera parte del formulario 
   if($inicial){
     $form['form_edicion']['table'] = array(
       '#type' => 'select',
@@ -39,13 +40,24 @@ function cpnaa_tablas_edicion_form($form, &$form_state) {
       );
       //nombre de las columnas
       foreach ($columns as $key => $value) {
-        $form['form_edicion']['data_table']["col_name".$key] = array(
-          '#type' => 'container','#prefix' => '<div class="form_edicion_table_names">'.$key, '#suffix' => '</div>',
-        );
+        $form['form_edicion']['data_table']['table_names_'.$key] = array(
+	    '#markup' => $key,
+	  	);	
       }
-
-
-
+	  $query_data = db_select($form_state['table_select'], 'd');
+	  $query_data->fields('d');              
+	  $result_data = $query_data->execute(); 
+	  dpm($result_data);
+	  foreach ($result_data as $row) {
+	  	foreach ($row as $key => $value) {
+	  		$form['form_edicion']['data_table']['table_data_'.$key] = array(
+		    	'#markup' => $value,
+		  	);
+		  }
+	  }
+	  
+	  
+	  
       $form['form_edicion']['cancelar_submit'] = array('#type' => 'submit', '#value' => t('Cancelar'),
         '#submit' => array('cpnaa_tablas_edicion_cancelar'),
         '#ajax' => array( 'callback' =>'cpnaa_tablas_carga_tabla_callback', 'wrapper' => 'form_edicion_wrapper', ),
@@ -54,20 +66,21 @@ function cpnaa_tablas_edicion_form($form, &$form_state) {
         '#submit' => array('cpnaa_tablas_edicion_agregar'), '#ajax' => array('callback' =>'cpnaa_tablas_carga_tabla_callback', 'wrapper' => 'form_edicion_wrapper', ),
       );
     }
-    elseif ($form_state['status']=="agregar") {
+	// agregar un registro a la tabla
+    else if ($form_state['status']=="agregar") {
       $columns=cpnaa_tablas_get_tablas_schema($form_state['table_select']);
       $form['form_edicion']['add_table'] = array(
         '#type' => 'container','#prefix' => '<div class="form_edicion_add_table">', '#suffix' => '</div>',
       );
       //nombre de las columnas
       foreach ($columns as $key => $value) {
-        if($value['type']=="varchar" )´{
+        if($value['type']=="varchar" ){
           $form['form_edicion']['add_table'][$key] = array('#type' => 'textfield', '#title' => $key,
               '#default_value' => $value["default"] , '#size' => 60, '#maxlength' => $value["length"] ,
               '#required' => TRUE,
           );
         }
-        else if($value['type']=="int" )´{
+        else if($value['type']=="int" ){
           $form['form_edicion']['add_table'][$key] = array('#type' => 'textfield', '#title' => $key,
               '#default_value' => $value["default"], '#size' => 10, '#maxlength' => "10",
               '#required' => TRUE, '#element_validate' => array('element_validate_integer_positive'),
@@ -99,6 +112,14 @@ function cpnaa_tablas_edicion_carga($form, &$form_state) {
   $form_state['rebuild'] = TRUE;
 }
 function cpnaa_tablas_edicion_agregar_add($form, &$form_state) {
+	$columns=cpnaa_tablas_get_tablas_schema($form_state['table_select']);
+	$data=FALSE;
+	foreach ($columns as $key => $value) {
+		$data[$key]=$form_state['values']['form_edicion']['add_table'][$key];
+    }
+	$query_create_cart = db_insert($form_state['table_select'])
+      ->fields($data)
+      ->execute();
   $form_state['status']="tabla";
   $form_state['rebuild'] = TRUE;
 }
