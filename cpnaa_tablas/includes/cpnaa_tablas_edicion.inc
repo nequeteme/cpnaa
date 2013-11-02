@@ -36,25 +36,47 @@ function cpnaa_tablas_edicion_form($form, &$form_state) {
     if($form_state['status']=="tabla"){
       $columns=cpnaa_tablas_get_tablas_schema($form_state['table_select']);
       $form['form_edicion']['data_table'] = array(
-        '#type' => 'container','#prefix' => '<div class="form_edicion_table">', '#suffix' => '</div>',
+        '#type' => 'container','#prefix' => '<table class="form_edicion_table">', '#suffix' => '</table>',
       );
       //nombre de las columnas
+      $form['form_edicion']['data_table']['table_names'] = array(
+         '#markup' => '', '#prefix' => '<tr class="row_title">', '#suffix' => '</tr>',
+        );
+      $form['form_edicion']['data_table']['table_names']['borrar'] = array(
+         '#markup' => t('Borrar'), '#prefix' => '<td class="cel_title">', '#suffix' => '</td>',
+        );
+      $form['form_edicion']['data_table']['table_names']['editar'] = array(
+         '#markup' => t('Editar'), '#prefix' => '<td class="cel_title">', '#suffix' => '</td>',
+        );
       foreach ($columns as $key => $value) {
-        $form['form_edicion']['data_table']['table_names_'.$key] = array(
-	    '#markup' => $key,
-	  	);	
+        $form['form_edicion']['data_table']['table_names'][$key] = array(
+         '#markup' => $key, '#prefix' => '<td class="cel_title">', '#suffix' => '</td>',
+      	);	
       }
-	  $query_data = db_select($form_state['table_select'], 'd');
-	  $query_data->fields('d');              
-	  $result_data = $query_data->execute(); 
-	  dpm($result_data);
-	  foreach ($result_data as $row) {
-	  	foreach ($row as $key => $value) {
-	  		$form['form_edicion']['data_table']['table_data_'.$key] = array(
-		    	'#markup' => $value,
-		  	);
-		  }
-	  }
+  	  $query_data = db_select($form_state['table_select'], 'd');
+  	  $query_data->fields('d');              
+  	  $result_data = $query_data->execute(); 
+  	  foreach ($result_data as $con => $row) {
+        dpm($row);
+        $form['form_edicion']['data_table']['table_content_'.$con] = array(
+         '#markup' => "", '#prefix' => '<tr class="row_data">', '#suffix' => '</tr>',
+        );
+        $form['form_edicion']['data_table']['table_content_'.$con]['borrar'] = array('#type' => 'submit', '#value' => t('Borrar'),
+          '#submit' => array('cpnaa_tablas_edicion_borrar'),
+          '#ajax' => array( 'callback' =>'cpnaa_tablas_carga_tabla_callback', 'wrapper' => 'form_edicion_wrapper', ),
+          '#prefix' => '<td class="cel_data">', '#suffix' => '</td>',
+        );
+        $form['form_edicion']['data_table']['table_content_'.$con]['editar'] = array('#type' => 'submit', '#value' => t('Editar'),
+          '#submit' => array('cpnaa_tablas_edicion_editar'),
+          '#ajax' => array( 'callback' =>'cpnaa_tablas_carga_tabla_callback', 'wrapper' => 'form_edicion_wrapper', ),
+          '#prefix' => '<td class="cel_data">', '#suffix' => '</td>',
+        );        
+  	  	foreach ($row as $key => $value) {
+  	  		$form['form_edicion']['data_table']['table_content_'.$con][$key] = array(
+  		    	'#markup' => $value, '#prefix' => '<td class="cel_data">', '#suffix' => '</td>',
+  		  	);
+  		  }
+  	  }
 	  
 	  
 	  
@@ -121,6 +143,13 @@ function cpnaa_tablas_edicion_agregar_add($form, &$form_state) {
       ->fields($data)
       ->execute();
   $form_state['status']="tabla";
+  $form_state['rebuild'] = TRUE;
+}
+
+
+function cpnaa_tablas_edicion_borrar($form, &$form_state) {
+  $form_state['status']="tabla";
+  dpm($form_state);
   $form_state['rebuild'] = TRUE;
 }
 
