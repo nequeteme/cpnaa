@@ -1,0 +1,4 @@
+name = CPNAA Certificado de Vigencia Profesional
+description = "Manejo de los Certificados de Vigencia Profesional"
+package = CPNAA
+core = 7.x

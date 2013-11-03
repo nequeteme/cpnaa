@@ -1,0 +1,39 @@
+<?php
+
+
+/*
+ *Función menu 
+ */
+function cpnaa_vprof_menu() {
+  $items = array();
+  $items['cpnaa'] = array(
+    'title' => 'Cpnaa',
+    'description' => 'Listado de Formularios de Cpnaa',
+    'position' => 'left',
+    'weight' => -100,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  // formulario de certificado de vigencia profesional digital, tramite en oficina
+  $items['cpnaa/vigencia_profesional_oficina'] = array(
+    'title' => 'Solicitud de Certificado de Vigencia Profesional Digital, Tramite en Oficina',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('cpnaa_vprof_tramite_oficina_form'),
+    'access arguments' => array('cpnaa_vprof_tramite_oficina'),
+    'file' => '/includes/cpnaa_vprof_tramite_oficina.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function cpnaa_vprof_permission() {
+  $perm['cpnaa_vprof_tramite_oficina'] = array(
+      'title' => t('Certificado de Vigencia Profesional Digital, Tramite en Oficina'), );  
+
+  return $perm;
+}

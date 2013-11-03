@@ -10,8 +10,11 @@ global $CPNAA_tablas_names;
  * 				fk: Campo de la llave foranea
  * 				t_fk: Tabla de la llave foranea 
  */
+
 $CPNAA_tablas_names =array(
 													'banco'=>array('table'=>'banco', 'info'=>'nomBanco'),
+                          'tipo profesion'=>array('table'=>'tipo_profesion', 'info'=>'nomTipoProfesion'),
+                          'profesion'=>array('table'=>'profesion', 'info'=>'nomProfesion'),
 													'ciudad'=>array('table'=>'ciudad', 'info'=> 'nomCiudad', 'fk'=>'idDepto', 't_fk'=>'departamento'),
 													'departamento'=>array('table'=>'departamento', 'info'=>'nomDepto'),
 												);

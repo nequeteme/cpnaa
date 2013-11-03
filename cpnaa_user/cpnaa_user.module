@@ -34,24 +34,27 @@ function cpnaa_user_form_alter(&$form, &$form_state, $form_id){
             '#type' => 'select',
             '#title' => t('Departamento'),
             '#options' => $deptos, 
+            '#default_value' => 'Seleccione uno',
             '#ajax' => array(
-                'callback' =>'cpnaa_user_depto_callback', 
+                'callback' =>'cpnaa_user_depto_callback',
+                'wrapper' => 'form_user_ciudad', 
                 ),
         );
         $form['info_personal']['ciudad'] = array(
             '#type' => 'select',
             '#title' => t('Ciudad'), 
+            '#prefix' => '<div id="form_user_ciudad">', '#suffix' => '</div>',
         );
         $form['#submit'][] = 'cpnaa_user_register_submit';
     }
    
 }
 
-function cpnaa_user_depto_callback($form, $form_state){
+function cpnaa_user_depto_callback(&$form, $form_state){
     $ciudad=cpnaa_tablas_get_select('ciudad', $form_state['values']['departamento']);
     $form['info_personal']['ciudad']['#options']=$ciudad;
     $form['info_personal']['ciudad'];
-    $form_state['rebuild'] = TRUE;  
+    return $form['info_personal']['ciudad'];
 }
 
 function cpnaa_user_register_submit($form, &$form_state)

@@ -57,7 +57,6 @@ function cpnaa_tablas_edicion_form($form, &$form_state) {
   	  $query_data->fields('d');              
   	  $result_data = $query_data->execute(); 
   	  foreach ($result_data as $con => $row) {
-        dpm($row);
         $form['form_edicion']['data_table']['table_content_'.$con] = array(
          '#markup' => "", '#prefix' => '<tr class="row_data">', '#suffix' => '</tr>',
         );
@@ -149,7 +148,7 @@ function cpnaa_tablas_edicion_agregar_add($form, &$form_state) {
 
 function cpnaa_tablas_edicion_borrar($form, &$form_state) {
   $form_state['status']="tabla";
-  dpm($form_state);
+  
   $form_state['rebuild'] = TRUE;
 }
 
