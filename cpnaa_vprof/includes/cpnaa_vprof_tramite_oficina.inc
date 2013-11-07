@@ -1,18 +1,5 @@
 <?php
 
-function cpnaa_vprof_form_identificacion(){
-	$form = array();
-	$form= array(
-      '#type' => 'select',
-      '#title' => t('Tipo de Identificacion'),
-      '#options' => array(
-      	'Cedula' =>'Cedula',
-      	'Cedula de extrangeria' =>'Cedula de extrangeria',
-      	),
-    );
-	return $form;
-}
-
 function cpnaa_vprof_tramite_oficina_form($form, &$form_state) {
   $inicial=false;
   $form = array();
@@ -30,13 +17,8 @@ function cpnaa_vprof_tramite_oficina_form($form, &$form_state) {
   	$form['form_edicion']['texto_inicial'] = array(
          '#markup' => t('Permitir al usuario interno de CPNAA diligenciar los datos requeridos para generar un Certificado de Vigencia Profesional Digital, que permita'), '#prefix' => '<div class="texto_inicial">', '#suffix' => '</div>',
     );
-    $form['form_edicion']['identificacion'] = cpnaa_vprof_form_identificacion();
-    $form['form_edicion']['numdocu']= array(
-    	'#type' => 'textfield', 
-    	'#title' => t('Numero'),
-      '#size' => 20, '#maxlength' => 30 ,
-      '#required' => TRUE,
-      );
+    $form['form_edicion']['identificacion'] = cpnaa_user_form_identificacion();
+    $form['form_edicion']['numdocu']= cpnaa_user_form_documento();
     $form['form_edicion']['cancelar_inicial'] = array(
       '#type' => 'submit',
       '#value' => t('Cancelar'),

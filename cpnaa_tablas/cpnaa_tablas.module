@@ -12,12 +12,15 @@ global $CPNAA_tablas_names;
  */
 
 $CPNAA_tablas_names =array(
-													'banco'=>array('table'=>'banco', 'info'=>'nomBanco'),
-                          'tipo profesion'=>array('table'=>'tipo_profesion', 'info'=>'nomTipoProfesion'),
-                          'profesion'=>array('table'=>'profesion', 'info'=>'nomProfesion'),
-													'ciudad'=>array('table'=>'ciudad', 'info'=> 'nomCiudad', 'fk'=>'idDepto', 't_fk'=>'departamento'),
-													'departamento'=>array('table'=>'departamento', 'info'=>'nomDepto'),
-												);
+						'banco'=>array('table'=>'banco', 'info'=>'nomBanco'),
+                        'tipoprofesion'=>array('table'=>'tipoprofesion', 'info'=>'nomTipoProfesion'),
+                        'profesion'=>array('table'=>'profesion', 'info'=>'nomProfesion'),
+						'ciudad'=>array('table'=>'ciudad', 'info'=> 'nomCiudad', 'fk'=>'idDepto', 't_fk'=>'departamento'),
+						'departamento'=>array('table'=>'departamento', 'info'=>'nomDepto'),
+						'tipoidentificacion'=>array('table'=>'tipoidentificacion', 'info'=>'nomIdentificacion'),
+						
+						
+						);
 
 include_once 'includes/cpnaa_tablas_upload.inc';
 include_once 'includes/cpnaa_tablas_utility.inc';

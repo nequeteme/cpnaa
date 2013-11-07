@@ -19,6 +19,7 @@ function cpnaa_tablas_get_select($alias_tabla='departamento', $foren_key='') {
   }
 	$result = $query->execute();
 	$data=false;
+	$data['0']='Seleccione uno';
 	foreach ($result as $row) {
 		$data[$row->id]=$row->$CPNAA_tablas_names[$alias_tabla]['info'];							
 	}

@@ -25,7 +25,7 @@ function cpnaa_tablas_schema() {
 	//tabla de departamentos
   $schema['departamento'] = array(  
     'fields' => array(
-      'id' => array('description' => 'id del banco', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
+      'id' => array('description' => 'id departamento', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
       'nomDepto' => array('description' => 'Nombre del Departamento', 'type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => '' ),    
       'CodDane' => array('description' => '', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),      
     ),
@@ -43,7 +43,7 @@ function cpnaa_tablas_schema() {
   );
   
     //tabla de tipo_profesion
-  $schema['tipo_profesion'] = array(  
+  $schema['tipoprofesion'] = array(  
     'fields' => array(
       'id' => array('description' => 'id de las profesiones', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
       'nomTipoProfesion' => array('description' => 'Nombre del tipo de profesion', 'type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => '' ),    
@@ -51,6 +51,14 @@ function cpnaa_tablas_schema() {
       'nomEntidad' => array('description' => 'nomEntidad', 'type' => 'varchar', 'length' => 200, 'not null' => TRUE, 'default' => '' ),    
       'activo' => array('description' => 'activo', 'type' => 'varchar', 'length' => 10, 'not null' => TRUE, 'default' => '' ),    
  
+    ),    
+    'primary key' => array('id') 
+  );
+  
+  $schema['tipoidentificacion'] = array(  
+    'fields' => array(
+      'id' => array('description' => 'id tipo de identificacion', 'type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE ),
+      'nomIdentificacion' => array('description' => 'Nombre Identificaxcion', 'type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => '' ),        
     ),
     'primary key' => array('id') 
   );
